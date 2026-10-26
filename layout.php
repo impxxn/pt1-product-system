@@ -1,22 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My App</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" rel="stylesheet">
-</head>
-<body>
-  <div class="container-fluid p-0 min-vh-100">
-    <div class="row g-0 min-vh-100">
- 
-      <div class="col-auto">Put sidebar here.</div>
- 
-      <div class="col">Put content here.</div>
- 
+
+<?php require_once 'header.php'; ?>
+
+<?php require_once 'sidebar.php'; ?>
+
+<!-- Main Content -->
+<div class="col bg-light">
+
+    <!-- Mobile Header -->
+    <div class="p-3 d-lg-none bg-dark text-white mobile-header">
+
+        <div class="d-flex align-items-center">
+
+            <a href="#mySidebar"
+               class="text-white text-decoration-none"
+               data-bs-toggle="offcanvas"
+               data-bs-target="#mySidebar"
+               aria-controls="mySidebar"
+               aria-label="Open navigation menu">
+
+                <i class="bi bi-list fs-3"></i>
+
+            </a>
+
+            <h5 class="ms-3 mb-0">
+                My Product System
+            </h5>
+
+        </div>
+
     </div>
-  </div>
-</body>
-</html>
- 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Page Content -->
+    <div class="p-4">
+
+        <?php
+        echo isset($content) ? $content : '';
+        ?>
+
+    </div>
+
+</div>
+
+<?php require_once 'footer.php'; ?>
