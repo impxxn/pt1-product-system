@@ -451,9 +451,16 @@ ob_start();
                 Back to Orders
             </a>
 
-            <a href="invoice.php" class="btn btn-primary">
-                <i class="bi bi-printer me-1"></i>
-                View Invoice
+            
+<a href="invoice.php"
+   class="btn btn-primary"
+   onclick="saveOrderForInvoice()">
+    <i class="bi bi-printer me-1"></i>
+    View Invoice
+</a>
+
+                
+                
             </a>
 
         </div>
@@ -799,6 +806,36 @@ productSelect.addEventListener('change', updateProductPreview);
 
 updateProductPreview();
 updateGrandTotal();
+
+
+function saveOrderForInvoice() {
+
+    const rows = document.querySelectorAll(
+        '#orderItemsBody tr'
+    );
+
+    const invoiceItems = [];
+
+    rows.forEach(row => {
+
+        invoiceItems.push({
+            num: row.querySelector('.item-num').textContent.trim(),
+            name: row.querySelector('.item-name').textContent.trim(),
+            price: Number(
+                row.querySelector('.item-price').dataset.price
+            ),
+            quantity: Number(
+                row.querySelector('.item-quantity').textContent
+            )
+        });
+
+    });
+
+    sessionStorage.setItem(
+        'pt1_invoice_items',
+        JSON.stringify(invoiceItems)
+    );
+}
 
 </script>
 
