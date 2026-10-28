@@ -1,84 +1,49 @@
 
 <?php
-// =============================================
-// PT1 - ORDER DETAILS PAGE
-// Protein Shaker Bottle (30 Models)
-// PHP + Bootstrap 5
-// Dummy Data - No Database
-// =============================================
+// PT1 - ORDER DETAILS
+// 30 Protein Shaker Bottle Models
+// Per-order temporary storage
 
-// Find image with supported extensions
-function findProductImage($modelNumber)
+function findShakerImage($number)
 {
     $extensions = [
         'jpg', 'jpeg', 'png', 'webp',
         'JPG', 'JPEG', 'PNG', 'WEBP'
     ];
 
-    foreach ($extensions as $extension) {
+    foreach ($extensions as $ext) {
+        $file = 'model' . $number . '.' . $ext;
 
-        $fileName = 'model' . $modelNumber . '.' . $extension;
-
-        $fullPath = __DIR__ . '/images/' . $fileName;
-
-        if (is_file($fullPath)) {
-            return 'images/' . $fileName;
+        if (is_file(__DIR__ . '/images/' . $file)) {
+            return 'images/' . $file;
         }
     }
 
     return '';
 }
 
-// Generate 30 product models
 $products = [];
 
 for ($i = 1; $i <= 30; $i++) {
-
-    $productNumber = 'P' . str_pad(
-        $i,
-        3,
-        '0',
-        STR_PAD_LEFT
-    );
-
     $products[] = [
-        'num' => $productNumber,
+        'num' => 'P' . str_pad($i, 3, '0', STR_PAD_LEFT),
         'name' => 'Protein Shaker Bottle - Model ' . $i,
         'price' => 25.00,
-        'image' => findProductImage($i)
+        'image' => findShakerImage($i)
     ];
 }
-
-// Dummy order information
-$order = [
-    'number' => 'O001',
-    'date' => '2026-10-03',
-    'staff' => 'Jane Smith',
-    'customer' => 'Alice Johnson'
-];
-
-// Default order item: Model 1, quantity 1
-$defaultItem = $products[0];
 
 ob_start();
 ?>
 
-<!-- ===================================== -->
-<!-- PAGE HEADING -->
-<!-- ===================================== -->
-
-<div class="d-flex flex-wrap justify-content-between
-            align-items-center gap-2 mb-4">
-
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
         <h2 class="mb-1">
             <i class="bi bi-receipt text-primary me-2"></i>
             Order Details
         </h2>
-
-        <p class="text-muted mb-0">
-            Manage products for Order
-            <?php echo htmlspecialchars($order['number']); ?>
+        <p class="text-muted mb-0" id="orderHeading">
+            Manage products for Order O001
         </p>
     </div>
 
@@ -86,257 +51,123 @@ ob_start();
         <i class="bi bi-arrow-left me-1"></i>
         Back to Orders
     </a>
-
 </div>
 
-
-<!-- ===================================== -->
 <!-- ORDER INFORMATION -->
-<!-- ===================================== -->
-
 <div class="card shadow-sm mb-4">
-
     <div class="card-header bg-primary text-white">
-        <h5 class="mb-0">
-            <i class="bi bi-info-circle me-2"></i>
-            Order Information
-        </h5>
+        <h5 class="mb-0">Order Information</h5>
     </div>
 
     <div class="card-body">
-
         <div class="row g-3">
-
             <div class="col-md-3">
-                <label class="form-label fw-bold">
-                    Order Number
-                </label>
-
-                <input
-                    type="text"
-                    class="form-control"
-                    value="<?php echo htmlspecialchars($order['number']); ?>"
-                    readonly
-                >
+                <label class="form-label fw-bold">Order Number</label>
+                <input type="text" class="form-control"
+                       id="displayOrderNum" readonly>
             </div>
 
             <div class="col-md-3">
-                <label class="form-label fw-bold">
-                    Order Date
-                </label>
-
-                <input
-                    type="date"
-                    class="form-control"
-                    value="<?php echo htmlspecialchars($order['date']); ?>"
-                    readonly
-                >
+                <label class="form-label fw-bold">Order Date</label>
+                <input type="date" class="form-control"
+                       id="displayOrderDate" readonly>
             </div>
 
             <div class="col-md-3">
-                <label class="form-label fw-bold">
-                    Staff
-                </label>
-
-                <input
-                    type="text"
-                    class="form-control"
-                    value="<?php echo htmlspecialchars($order['staff']); ?>"
-                    readonly
-                >
+                <label class="form-label fw-bold">Staff</label>
+                <input type="text" class="form-control"
+                       id="displayStaff" readonly>
             </div>
 
             <div class="col-md-3">
-                <label class="form-label fw-bold">
-                    Customer
-                </label>
-
-                <input
-                    type="text"
-                    class="form-control"
-                    value="<?php echo htmlspecialchars($order['customer']); ?>"
-                    readonly
-                >
+                <label class="form-label fw-bold">Customer</label>
+                <input type="text" class="form-control"
+                       id="displayCustomer" readonly>
             </div>
-
         </div>
-
     </div>
 </div>
 
-
-<!-- ===================================== -->
-<!-- ADD PRODUCT FORM -->
-<!-- ===================================== -->
-
+<!-- ADD PRODUCT -->
 <div class="card shadow-sm mb-4">
-
     <div class="card-header bg-success text-white">
-        <h5 class="mb-0">
-            <i class="bi bi-cart-plus me-2"></i>
-            Add Product to Order
-        </h5>
+        <h5 class="mb-0">Add Product to Order</h5>
     </div>
 
     <div class="card-body">
-
         <form id="addProductForm">
-
             <div class="row g-3 align-items-end">
-
-                <!-- Product Selection -->
                 <div class="col-md-6">
-
-                    <label for="productSelect"
-                           class="form-label fw-bold">
+                    <label for="productSelect" class="form-label">
                         Select Product
                     </label>
 
-                    <select
-                        id="productSelect"
-                        name="product_num"
-                        class="form-select"
-                        required
-                    >
-
+                    <select id="productSelect"
+                            class="form-select" required>
                         <?php foreach ($products as $product): ?>
-
                             <option
-                                value="<?php echo htmlspecialchars($product['num'], ENT_QUOTES, 'UTF-8'); ?>"
-                                data-name="<?php echo htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8'); ?>"
-                                data-price="<?php echo $product['price']; ?>"
-                                data-image="<?php echo htmlspecialchars($product['image'], ENT_QUOTES, 'UTF-8'); ?>"
-                            >
-                                <?php
-                                    echo htmlspecialchars(
-                                        $product['num'] . ' - ' . $product['name'],
-                                        ENT_QUOTES,
-                                        'UTF-8'
-                                    );
-                                ?>
+                                value="<?= htmlspecialchars($product['num'], ENT_QUOTES, 'UTF-8') ?>"
+                                data-name="<?= htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8') ?>"
+                                data-price="<?= $product['price'] ?>"
+                                data-image="<?= htmlspecialchars($product['image'], ENT_QUOTES, 'UTF-8') ?>">
+                                <?= htmlspecialchars($product['num'] . ' - ' . $product['name'], ENT_QUOTES, 'UTF-8') ?>
                             </option>
-
                         <?php endforeach; ?>
-
                     </select>
-
                 </div>
 
-                <!-- Quantity -->
                 <div class="col-md-3">
-
-                    <label for="productQuantity"
-                           class="form-label fw-bold">
+                    <label for="productQuantity" class="form-label">
                         Quantity
                     </label>
-
-                    <input
-                        type="number"
-                        id="productQuantity"
-                        name="quantity"
-                        class="form-control"
-                        min="1"
-                        step="1"
-                        value="1"
-                        required
-                    >
-
+                    <input type="number" id="productQuantity"
+                           class="form-control" min="1"
+                           step="1" value="1" required>
                 </div>
 
-                <!-- Add Button -->
                 <div class="col-md-3">
-
-                    <button
-                        type="submit"
-                        class="btn btn-success w-100"
-                    >
+                    <button type="submit" class="btn btn-success w-100">
                         <i class="bi bi-plus-lg me-1"></i>
                         Add Product
                     </button>
-
                 </div>
-
             </div>
-
         </form>
 
-        <!-- Product Preview -->
-        <div class="row align-items-center g-3 mt-3">
+        <div class="d-flex align-items-center gap-3 mt-4">
+            <img id="productPreview" alt="Selected product"
+                 class="img-thumbnail"
+                 style="width:100px;height:100px;object-fit:contain;">
 
-            <div class="col-auto">
-
-                <img
-                    id="productPreview"
-                    src=""
-                    alt="Selected Product"
-                    class="img-thumbnail"
-                    style="
-                        width: 110px;
-                        height: 110px;
-                        object-fit: contain;
-                    "
-                >
-
-                <div
-                    id="noImagePreview"
-                    class="border rounded bg-light
-                           text-muted d-none
-                           align-items-center
-                           justify-content-center"
-                    style="
-                        width: 110px;
-                        height: 110px;
-                        font-size: 12px;
-                    "
-                >
-                    No Image
-                </div>
-
+            <div id="noImagePreview"
+                 class="border rounded bg-light text-muted d-none align-items-center justify-content-center"
+                 style="width:100px;height:100px;font-size:12px;">
+                No Image
             </div>
 
-            <div class="col">
-
+            <div>
                 <h6 id="previewName" class="mb-1"></h6>
-
                 <p class="text-muted mb-0">
                     Unit Price:
-                    <strong id="previewPrice">
-                        RM 0.00
-                    </strong>
+                    <strong id="previewPrice">RM 25.00</strong>
                 </p>
-
             </div>
-
         </div>
 
         <div id="orderMessage" class="mt-3"></div>
-
     </div>
 </div>
 
-
-<!-- ===================================== -->
-<!-- PRODUCTS IN ORDER -->
-<!-- ===================================== -->
-
+<!-- ORDER ITEMS -->
 <div class="card shadow-sm mb-4">
-
     <div class="card-header bg-dark text-white">
-        <h5 class="mb-0">
-            <i class="bi bi-list-check me-2"></i>
-            Products in Order
-        </h5>
+        <h5 class="mb-0">Products in Order</h5>
     </div>
 
     <div class="card-body">
-
         <div class="table-responsive">
-
-            <table class="table table-bordered
-                          table-striped align-middle">
-
+            <table class="table table-bordered table-striped align-middle">
                 <thead class="table-dark">
-
                     <tr>
                         <th>No.</th>
                         <th>Image</th>
@@ -347,498 +178,309 @@ ob_start();
                         <th>Total (RM)</th>
                         <th>Action</th>
                     </tr>
-
                 </thead>
 
-                <tbody id="orderItemsBody">
-
-                    <tr data-product-num="<?php echo htmlspecialchars($defaultItem['num'], ENT_QUOTES, 'UTF-8'); ?>">
-
-                        <td class="row-number">1</td>
-
-                        <td class="item-image">
-
-                            <?php if ($defaultItem['image'] !== ''): ?>
-
-                                <img
-                                    src="<?php echo htmlspecialchars($defaultItem['image'], ENT_QUOTES, 'UTF-8'); ?>"
-                                    alt="Model 1"
-                                    class="img-thumbnail"
-                                    style="
-                                        width: 70px;
-                                        height: 70px;
-                                        object-fit: contain;
-                                    "
-                                >
-
-                            <?php else: ?>
-
-                                <span class="text-muted small">
-                                    No Image
-                                </span>
-
-                            <?php endif; ?>
-
-                        </td>
-
-                        <td class="item-num">
-                            <?php echo htmlspecialchars($defaultItem['num']); ?>
-                        </td>
-
-                        <td class="item-name">
-                            <?php echo htmlspecialchars($defaultItem['name']); ?>
-                        </td>
-
-                        <td class="item-price" data-price="25">
-                            25.00
-                        </td>
-
-                        <td class="item-quantity">1</td>
-
-                        <td class="item-total">25.00</td>
-
-                        <td>
-
-                            <button
-                                type="button"
-                                class="btn btn-warning btn-sm mb-1"
-                                onclick="editQuantity(this)"
-                            >
-                                Edit
-                            </button>
-
-                            <button
-                                type="button"
-                                class="btn btn-danger btn-sm mb-1"
-                                onclick="deleteItem(this)"
-                            >
-                                Delete
-                            </button>
-
-                        </td>
-
-                    </tr>
-
-                </tbody>
-
+                <tbody id="orderItemsBody"></tbody>
             </table>
-
         </div>
 
-        <!-- Grand Total -->
-        <div class="d-flex justify-content-end mt-3">
+        <p id="emptyOrderMessage"
+           class="text-center text-muted d-none">
+            No products in this order.
+        </p>
 
-            <div class="text-end">
-
-                <h4>
-                    Grand Total:
-                    <span class="text-success" id="grandTotal">
-                        RM 25.00
-                    </span>
-                </h4>
-
-            </div>
-
+        <div class="text-end mt-3">
+            <h4>
+                Grand Total:
+                <span class="text-success" id="grandTotal">
+                    RM 0.00
+                </span>
+            </h4>
         </div>
 
         <hr>
 
-        <!-- Navigation Buttons -->
         <div class="d-flex flex-wrap gap-2">
-
             <a href="orders.php" class="btn btn-secondary">
-                <i class="bi bi-arrow-left me-1"></i>
                 Back to Orders
             </a>
 
-            
-<a href="invoice.php"
-   class="btn btn-primary"
-   onclick="saveOrderForInvoice()">
-    <i class="bi bi-printer me-1"></i>
-    View Invoice
-</a>
-
-                
-                
-            </a>
-
+            <button type="button" id="viewInvoiceBtn"
+                    class="btn btn-primary">
+                <i class="bi bi-printer me-1"></i>
+                View Invoice
+            </button>
         </div>
 
         <p class="text-muted small mt-3 mb-0">
-            Note: This is a frontend demonstration.
-            Changes to this order are not saved permanently.
+            Demo only. Products are saved temporarily
+            for each order in this browser tab.
         </p>
-
     </div>
 </div>
 
-
-<!-- ===================================== -->
-<!-- JAVASCRIPT -->
-<!-- ===================================== -->
-
 <script>
+(() => {
+    const products = <?= json_encode(
+        $products,
+        JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT
+    ) ?>;
 
-// DOM elements
-const productSelect = document.getElementById('productSelect');
-const productQuantity = document.getElementById('productQuantity');
-const addProductForm = document.getElementById('addProductForm');
-const orderItemsBody = document.getElementById('orderItemsBody');
+    const defaultOrder = {
+        number: 'O001',
+        date: '2026-10-03',
+        staff: 'Jane Smith',
+        customer: 'Alice Johnson'
+    };
 
-const productPreview = document.getElementById('productPreview');
-const noImagePreview = document.getElementById('noImagePreview');
-const previewName = document.getElementById('previewName');
-const previewPrice = document.getElementById('previewPrice');
+    function getSelectedOrder() {
+        try {
+            const saved = sessionStorage.getItem('pt1_selected_order');
+            const order = saved ? JSON.parse(saved) : null;
 
-const grandTotalElement = document.getElementById('grandTotal');
-const orderMessage = document.getElementById('orderMessage');
+            if (order && typeof order.number === 'string') {
+                return order;
+            }
+        } catch (error) {
+            console.warn('Invalid order data:', error);
+        }
 
-
-// Format money
-function formatMoney(amount) {
-    return Number(amount).toFixed(2);
-}
-
-
-// Display feedback
-function showOrderMessage(message, type = 'success') {
-
-    orderMessage.textContent = '';
-
-    const alertBox = document.createElement('div');
-
-    alertBox.className = 'alert alert-' + type;
-    alertBox.textContent = message;
-
-    orderMessage.appendChild(alertBox);
-}
-
-
-// Update selected product preview
-function updateProductPreview() {
-
-    const selected = productSelect.selectedOptions[0];
-
-    if (!selected) {
-        return;
+        return defaultOrder;
     }
 
-    const name = selected.dataset.name;
-    const price = Number(selected.dataset.price);
-    const image = selected.dataset.image;
+    const order = getSelectedOrder();
+    const storageKey = 'pt1_items_' + order.number;
 
-    previewName.textContent = name;
-    previewPrice.textContent = 'RM ' + formatMoney(price);
+    document.getElementById('displayOrderNum').value = order.number;
+    document.getElementById('displayOrderDate').value = order.date;
+    document.getElementById('displayStaff').value = order.staff;
+    document.getElementById('displayCustomer').value = order.customer;
 
-    if (image) {
+    document.getElementById('orderHeading').textContent =
+        'Manage products for Order ' + order.number;
 
-        productPreview.src = image;
-        productPreview.classList.remove('d-none');
+    const productSelect = document.getElementById('productSelect');
+    const quantityInput = document.getElementById('productQuantity');
+    const tbody = document.getElementById('orderItemsBody');
+    const messageBox = document.getElementById('orderMessage');
 
-        noImagePreview.classList.add('d-none');
-        noImagePreview.classList.remove('d-flex');
+    const defaultItems = order.number === 'O001'
+        ? [{
+            num: 'P001',
+            name: 'Protein Shaker Bottle - Model 1',
+            price: 25,
+            quantity: 1,
+            image: products[0].image
+        }]
+        : [];
 
-    } else {
+    function loadItems() {
+        try {
+            const saved = sessionStorage.getItem(storageKey);
 
-        productPreview.removeAttribute('src');
-        productPreview.classList.add('d-none');
+            if (saved !== null) {
+                const parsed = JSON.parse(saved);
+                if (Array.isArray(parsed)) return parsed;
+            }
+        } catch (error) {
+            console.warn('Cannot load order items:', error);
+        }
 
-        noImagePreview.classList.remove('d-none');
-        noImagePreview.classList.add('d-flex');
-    }
-}
-
-
-// Calculate total for all rows
-function updateGrandTotal() {
-
-    const rows = orderItemsBody.querySelectorAll('tr');
-
-    let grandTotal = 0;
-
-    rows.forEach((row, index) => {
-
-        row.querySelector('.row-number').textContent = index + 1;
-
-        const price = Number(
-            row.querySelector('.item-price').dataset.price
-        );
-
-        const quantity = Number(
-            row.querySelector('.item-quantity').textContent
-        );
-
-        const total = price * quantity;
-
-        row.querySelector('.item-total').textContent =
-            formatMoney(total);
-
-        grandTotal += total;
-    });
-
-    grandTotalElement.textContent =
-        'RM ' + formatMoney(grandTotal);
-}
-
-
-// Create product image cell
-function setProductImage(cell, image, name) {
-
-    cell.textContent = '';
-
-    if (image) {
-
-        const img = document.createElement('img');
-
-        img.src = image;
-        img.alt = name;
-        img.className = 'img-thumbnail';
-
-        img.style.width = '70px';
-        img.style.height = '70px';
-        img.style.objectFit = 'contain';
-
-        cell.appendChild(img);
-
-    } else {
-
-        const span = document.createElement('span');
-
-        span.className = 'text-muted small';
-        span.textContent = 'No Image';
-
-        cell.appendChild(span);
-    }
-}
-
-
-// Add selected product to order
-addProductForm.addEventListener('submit', function(event) {
-
-    event.preventDefault();
-
-    const selected = productSelect.selectedOptions[0];
-
-    const num = selected.value;
-    const name = selected.dataset.name;
-    const price = Number(selected.dataset.price);
-    const image = selected.dataset.image;
-
-    const quantity = Number(productQuantity.value);
-
-    if (!Number.isSafeInteger(quantity) || quantity < 1) {
-
-        showOrderMessage(
-            'Please enter a valid quantity.',
-            'danger'
-        );
-
-        return;
+        return structuredClone(defaultItems);
     }
 
-    const rows = Array.from(
-        orderItemsBody.querySelectorAll('tr')
-    );
+    let items = loadItems();
 
-    // If product already exists, increase quantity
-    const existingRow = rows.find(row => {
-        return row.dataset.productNum === num;
-    });
-
-    if (existingRow) {
-
-        const currentQuantity = Number(
-            existingRow.querySelector('.item-quantity').textContent
-        );
-
-        existingRow.querySelector('.item-quantity').textContent =
-            currentQuantity + quantity;
-
-        showOrderMessage(
-            name + ' quantity updated successfully.'
-        );
-
-    } else {
-
-        const row = document.createElement('tr');
-
-        row.dataset.productNum = num;
-
-        // Number
-        const numberCell = row.insertCell();
-        numberCell.className = 'row-number';
-
-        // Image
-        const imageCell = row.insertCell();
-        imageCell.className = 'item-image';
-
-        setProductImage(imageCell, image, name);
-
-        // Product number
-        const numCell = row.insertCell();
-        numCell.className = 'item-num';
-        numCell.textContent = num;
-
-        // Product name
-        const nameCell = row.insertCell();
-        nameCell.className = 'item-name';
-        nameCell.textContent = name;
-
-        // Unit price
-        const priceCell = row.insertCell();
-        priceCell.className = 'item-price';
-        priceCell.dataset.price = price;
-        priceCell.textContent = formatMoney(price);
-
-        // Quantity
-        const quantityCell = row.insertCell();
-        quantityCell.className = 'item-quantity';
-        quantityCell.textContent = quantity;
-
-        // Total
-        const totalCell = row.insertCell();
-        totalCell.className = 'item-total';
-        totalCell.textContent = formatMoney(price * quantity);
-
-        // Actions
-        const actionCell = row.insertCell();
-
-        actionCell.innerHTML = `
-            <button
-                type="button"
-                class="btn btn-warning btn-sm mb-1"
-                onclick="editQuantity(this)"
-            >
-                Edit
-            </button>
-
-            <button
-                type="button"
-                class="btn btn-danger btn-sm mb-1"
-                onclick="deleteItem(this)"
-            >
-                Delete
-            </button>
-        `;
-
-        orderItemsBody.appendChild(row);
-
-        showOrderMessage(
-            name + ' added successfully.'
-        );
+    function saveItems() {
+        sessionStorage.setItem(storageKey, JSON.stringify(items));
     }
 
-    updateGrandTotal();
-
-    productQuantity.value = 1;
-});
-
-
-// Edit quantity
-function editQuantity(button) {
-
-    const row = button.closest('tr');
-
-    const quantityCell = row.querySelector('.item-quantity');
-
-    const currentQuantity = Number(quantityCell.textContent);
-
-    const input = prompt(
-        'Enter new quantity:',
-        currentQuantity
-    );
-
-    if (input === null) {
-        return;
+    function showMessage(text, type = 'success') {
+        messageBox.textContent = '';
+        const alert = document.createElement('div');
+        alert.className = 'alert alert-' + type;
+        alert.textContent = text;
+        messageBox.appendChild(alert);
     }
 
-    const newQuantity = Number(input);
-
-    if (!Number.isSafeInteger(newQuantity) || newQuantity < 1) {
-
-        showOrderMessage(
-            'Quantity must be a positive whole number.',
-            'danger'
-        );
-
-        return;
+    function money(value) {
+        return Number(value).toFixed(2);
     }
 
-    quantityCell.textContent = newQuantity;
-
-    updateGrandTotal();
-
-    showOrderMessage(
-        'Product quantity updated successfully.'
-    );
-}
-
-
-// Delete product
-function deleteItem(button) {
-
-    const row = button.closest('tr');
-
-    const productName =
-        row.querySelector('.item-name').textContent;
-
-    const confirmed = confirm(
-        'Remove ' + productName + ' from this order?'
-    );
-
-    if (!confirmed) {
-        return;
+    function addCell(row, value) {
+        const cell = row.insertCell();
+        cell.textContent = value;
+        return cell;
     }
 
-    row.remove();
+    function renderItems() {
+        tbody.textContent = '';
+        let grandTotal = 0;
 
-    updateGrandTotal();
+        items.forEach((item, index) => {
+            const total = item.price * item.quantity;
+            grandTotal += total;
 
-    showOrderMessage(
-        'Product removed successfully.'
-    );
-}
+            const row = tbody.insertRow();
 
+            addCell(row, index + 1);
 
-// Initialize page
-productSelect.addEventListener('change', updateProductPreview);
+            const imageCell = row.insertCell();
 
-updateProductPreview();
-updateGrandTotal();
+            if (item.image) {
+                const img = document.createElement('img');
+                img.src = item.image;
+                img.alt = item.name;
+                img.className = 'img-thumbnail';
+                img.style.width = '70px';
+                img.style.height = '70px';
+                img.style.objectFit = 'contain';
+                imageCell.appendChild(img);
+            } else {
+                imageCell.textContent = 'No Image';
+            }
 
+            addCell(row, item.num);
+            addCell(row, item.name);
+            addCell(row, money(item.price));
+            addCell(row, item.quantity);
+            addCell(row, money(total));
 
-function saveOrderForInvoice() {
+            const actions = row.insertCell();
 
-    const rows = document.querySelectorAll(
-        '#orderItemsBody tr'
-    );
+            const editBtn = document.createElement('button');
+            editBtn.type = 'button';
+            editBtn.className = 'btn btn-warning btn-sm me-1 mb-1';
+            editBtn.textContent = 'Edit';
+            editBtn.addEventListener('click', () => editQuantity(item.num));
 
-    const invoiceItems = [];
+            const deleteBtn = document.createElement('button');
+            deleteBtn.type = 'button';
+            deleteBtn.className = 'btn btn-danger btn-sm mb-1';
+            deleteBtn.textContent = 'Delete';
+            deleteBtn.addEventListener('click', () => deleteItem(item.num));
 
-    rows.forEach(row => {
-
-        invoiceItems.push({
-            num: row.querySelector('.item-num').textContent.trim(),
-            name: row.querySelector('.item-name').textContent.trim(),
-            price: Number(
-                row.querySelector('.item-price').dataset.price
-            ),
-            quantity: Number(
-                row.querySelector('.item-quantity').textContent
-            )
+            actions.appendChild(editBtn);
+            actions.appendChild(deleteBtn);
         });
 
-    });
+        document.getElementById('grandTotal').textContent =
+            'RM ' + money(grandTotal);
 
-    sessionStorage.setItem(
-        'pt1_invoice_items',
-        JSON.stringify(invoiceItems)
-    );
-}
+        document.getElementById('emptyOrderMessage')
+            .classList.toggle('d-none', items.length > 0);
+    }
 
+    function updatePreview() {
+        const selected = productSelect.selectedOptions[0];
+        if (!selected) return;
+
+        document.getElementById('previewName').textContent =
+            selected.dataset.name;
+
+        document.getElementById('previewPrice').textContent =
+            'RM ' + money(selected.dataset.price);
+
+        const img = document.getElementById('productPreview');
+        const fallback = document.getElementById('noImagePreview');
+
+        if (selected.dataset.image) {
+            img.src = selected.dataset.image;
+            img.classList.remove('d-none');
+            fallback.classList.add('d-none');
+            fallback.classList.remove('d-flex');
+        } else {
+            img.removeAttribute('src');
+            img.classList.add('d-none');
+            fallback.classList.remove('d-none');
+            fallback.classList.add('d-flex');
+        }
+    }
+
+    document.getElementById('addProductForm')
+        .addEventListener('submit', event => {
+            event.preventDefault();
+
+            const selected = productSelect.selectedOptions[0];
+            const quantity = Number(quantityInput.value);
+
+            if (!Number.isSafeInteger(quantity) || quantity < 1) {
+                showMessage('Enter a valid quantity.', 'danger');
+                return;
+            }
+
+            const existing = items.find(
+                item => item.num === selected.value
+            );
+
+            if (existing) {
+                existing.quantity += quantity;
+            } else {
+                items.push({
+                    num: selected.value,
+                    name: selected.dataset.name,
+                    price: Number(selected.dataset.price),
+                    quantity: quantity,
+                    image: selected.dataset.image
+                });
+            }
+
+            saveItems();
+            renderItems();
+            quantityInput.value = 1;
+
+            showMessage('Product added successfully.');
+        });
+
+    function editQuantity(number) {
+        const item = items.find(product => product.num === number);
+        if (!item) return;
+
+        const answer = prompt('Enter new quantity:', item.quantity);
+        if (answer === null) return;
+
+        const quantity = Number(answer);
+
+        if (!Number.isSafeInteger(quantity) || quantity < 1) {
+            showMessage('Quantity must be a positive whole number.', 'danger');
+            return;
+        }
+
+        item.quantity = quantity;
+        saveItems();
+        renderItems();
+
+        showMessage('Quantity updated successfully.');
+    }
+
+    function deleteItem(number) {
+        if (!confirm('Remove this product from the order?')) return;
+
+        items = items.filter(item => item.num !== number);
+        saveItems();
+        renderItems();
+
+        showMessage('Product removed successfully.');
+    }
+
+    document.getElementById('viewInvoiceBtn')
+        .addEventListener('click', () => {
+            saveItems();
+
+            sessionStorage.setItem(
+                'pt1_selected_order',
+                JSON.stringify(order)
+            );
+
+            window.location.href = 'invoice.php';
+        });
+
+    productSelect.addEventListener('change', updatePreview);
+
+    updatePreview();
+    renderItems();
+})();
 </script>
-
 
 <?php
 $content = ob_get_clean();

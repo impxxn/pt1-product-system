@@ -1,20 +1,8 @@
 
 <?php
-// =============================================
 // PT1 - SALES INVOICE
-// Protein Shaker Bottle Collection
-// PHP + Bootstrap 5
-// Dummy Data - No Database
-// =============================================
-
-$orderNumber = 'O001';
-$orderDate = '2026-10-03';
-
-$customerName = 'Alice Johnson';
-$customerPhone = '012-3456789';
-
-$staffName = 'Jane Smith';
-$staffEmail = 'janesmith@example.com';
+// Linked with Orders and Order Details
+// Printable A4 Invoice - No Database
 
 ob_start();
 ?>
@@ -25,64 +13,54 @@ ob_start();
     margin: 0 auto;
 }
 
+.invoice-card {
+    border-radius: 12px;
+}
+
 .invoice-table th,
 .invoice-table td {
     vertical-align: middle;
 }
 
 .invoice-total {
-    font-size: 1.4rem;
-    font-weight: bold;
+    font-size: 1.35rem;
+    font-weight: 700;
 }
 
 @media print {
-
     @page {
         size: A4 portrait;
-        margin: 10mm;
+        margin: 12mm;
     }
 
     body {
-        background: white !important;
-        margin: 0 !important;
-        padding: 0 !important;
+        background: #fff !important;
     }
 
-    /* Hide navigation and page controls */
-    #mySidebar,
-    .sidebar,
-    .mobile-header,
+    /* Hide common layout elements */
     header,
-    nav,
     footer,
+    nav,
+    aside,
+    .sidebar,
+    #sidebar,
+    #mySidebar,
+    .mobile-header,
     .no-print {
         display: none !important;
     }
 
-    /* Allow invoice to use printable page width */
+    /* Allow the invoice to fill the printed page */
     main,
     .main-content,
     .content,
     .container,
     .container-fluid,
-    .row,
-    [class*="col-"] {
-        max-width: 100% !important;
-    }
-
-    main,
-    .main-content,
-    .content,
-    .container,
-    .container-fluid {
+    .invoice-container {
         width: 100% !important;
+        max-width: 100% !important;
         margin: 0 !important;
         padding: 0 !important;
-    }
-
-    .invoice-container {
-        max-width: 100% !important;
-        width: 100% !important;
     }
 
     .invoice-card {
@@ -94,15 +72,6 @@ ob_start();
         padding: 0 !important;
     }
 
-    .invoice-table tr {
-        break-inside: avoid;
-        page-break-inside: avoid;
-    }
-
-    .invoice-table thead {
-        display: table-header-group;
-    }
-
     .invoice-table {
         font-size: 11px;
     }
@@ -112,11 +81,20 @@ ob_start();
         padding: 6px !important;
     }
 
+    .invoice-table tr {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    .invoice-table thead {
+        display: table-header-group;
+    }
+
     .invoice-table th {
         background: #212529 !important;
         color: white !important;
-        -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
     }
 
     a[href]::after {
@@ -125,180 +103,129 @@ ob_start();
 }
 </style>
 
-
-<!-- ===================================== -->
-<!-- PAGE ACTIONS -->
-<!-- ===================================== -->
-
 <div class="invoice-container">
 
-    <div class="d-flex flex-wrap justify-content-between
-                align-items-center gap-2 mb-4 no-print">
-
+    <!-- PAGE HEADER / ACTIONS -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4 no-print">
         <div>
             <h2 class="mb-1">
                 <i class="bi bi-receipt text-primary me-2"></i>
                 Sales Invoice
             </h2>
-
             <p class="text-muted mb-0">
                 Invoice for Order
-                <?php echo htmlspecialchars($orderNumber); ?>
+                <span id="pageOrderNumber">O001</span>
             </p>
         </div>
 
-        <div class="d-flex gap-2">
-
-            <a href="orderdetails.php"
-               class="btn btn-secondary">
+        <div class="d-flex flex-wrap gap-2">
+            <a href="orderdetails.php" class="btn btn-secondary">
                 <i class="bi bi-arrow-left me-1"></i>
                 Back to Details
             </a>
 
-            <button
-                type="button"
-                class="btn btn-primary"
-                onclick="window.print()"
-            >
+            <button type="button" class="btn btn-primary"
+                    onclick="window.print()">
                 <i class="bi bi-printer me-1"></i>
                 Print Invoice
             </button>
-
         </div>
-
     </div>
 
-
-    <!-- ===================================== -->
-    <!-- INVOICE CARD -->
-    <!-- ===================================== -->
-
-    <div class="card shadow-sm invoice-card"
-         id="invoiceContent">
-
+    <!-- INVOICE -->
+    <div class="card shadow-sm invoice-card">
         <div class="card-body p-4">
 
-            <!-- Company Header -->
+            <!-- COMPANY / INVOICE HEADING -->
             <div class="row align-items-start mb-4">
-
                 <div class="col-sm-7">
-
                     <h3 class="fw-bold text-primary mb-1">
                         My Product System
                     </h3>
-
                     <p class="text-muted mb-0">
                         Protein Shaker Bottle Collection
                     </p>
-
                     <p class="text-muted small mb-0">
                         Project Tutorial 1 (PT1)
                     </p>
-
                 </div>
 
                 <div class="col-sm-5 text-sm-end mt-3 mt-sm-0">
-
-                    <h2 class="fw-bold mb-1">
-                        INVOICE
-                    </h2>
+                    <h2 class="fw-bold mb-2">INVOICE</h2>
 
                     <p class="mb-1">
                         <strong>Invoice No:</strong>
-                        <?php echo htmlspecialchars($orderNumber); ?>
+                        <span id="invoiceOrderNumber">O001</span>
                     </p>
 
                     <p class="mb-0">
                         <strong>Date:</strong>
-                        <?php echo htmlspecialchars($orderDate); ?>
+                        <span id="invoiceOrderDate">2026-10-03</span>
                     </p>
-
                 </div>
-
             </div>
 
             <hr>
 
-
-            <!-- Customer and Staff Information -->
+            <!-- CUSTOMER / STAFF -->
             <div class="row mb-4">
-
                 <div class="col-sm-6 mb-3 mb-sm-0">
-
                     <h6 class="fw-bold text-uppercase">
                         Bill To
                     </h6>
 
                     <p class="mb-1">
-                        <strong>
-                            <?php echo htmlspecialchars($customerName); ?>
+                        <strong id="invoiceCustomerName">
+                            Alice Johnson
                         </strong>
                     </p>
 
-                    <p class="text-muted mb-0">
-                        Phone:
-                        <?php echo htmlspecialchars($customerPhone); ?>
+                    <p class="text-muted small mb-0">
+                        Customer Information
                     </p>
-
                 </div>
 
                 <div class="col-sm-6 text-sm-end">
-
                     <h6 class="fw-bold text-uppercase">
                         Handled By
                     </h6>
 
                     <p class="mb-1">
-                        <strong>
-                            <?php echo htmlspecialchars($staffName); ?>
+                        <strong id="invoiceStaffName">
+                            Jane Smith
                         </strong>
                     </p>
 
-                    <p class="text-muted mb-0">
-                        <?php echo htmlspecialchars($staffEmail); ?>
+                    <p class="text-muted small mb-0">
+                        Staff Information
                     </p>
-
                 </div>
-
             </div>
 
-
-            <!-- Invoice Products -->
+            <!-- PRODUCT TABLE -->
             <div class="table-responsive">
-
                 <table class="table table-bordered invoice-table">
-
                     <thead class="table-dark">
-
                         <tr>
-                            <th style="width: 8%;">No.</th>
-                            <th>Product</th>
+                            <th>No.</th>
+                            <th>Product Number</th>
+                            <th>Product Name</th>
                             <th class="text-end">Unit Price (RM)</th>
-                            <th class="text-center">Qty</th>
+                            <th class="text-center">Quantity</th>
                             <th class="text-end">Total (RM)</th>
                         </tr>
-
                     </thead>
 
-                    <tbody id="invoiceItemsBody">
-                        <!-- Filled by JavaScript -->
-                    </tbody>
-
+                    <tbody id="invoiceItemsBody"></tbody>
                 </table>
-
             </div>
 
-
-            <!-- Grand Total -->
+            <!-- TOTAL -->
             <div class="row mt-4">
-
                 <div class="col-sm-6"></div>
 
                 <div class="col-sm-6">
-
-                    <div class="d-flex justify-content-between
-                                border-top pt-3">
-
+                    <div class="d-flex justify-content-between align-items-center border-top pt-3">
                         <span class="invoice-total">
                             Grand Total:
                         </span>
@@ -307,17 +234,12 @@ ob_start();
                               id="invoiceGrandTotal">
                             RM 0.00
                         </span>
-
                     </div>
-
                 </div>
-
             </div>
 
-
-            <!-- Footer -->
+            <!-- FOOTER -->
             <div class="text-center mt-5 pt-3 border-top">
-
                 <h6 class="fw-bold">
                     Thank You for Your Purchase!
                 </h6>
@@ -326,123 +248,140 @@ ob_start();
                     This invoice is generated for
                     Project Tutorial 1 demonstration purposes.
                 </p>
-
             </div>
 
         </div>
-
     </div>
 
 </div>
 
-
-<!-- ===================================== -->
-<!-- JAVASCRIPT INVOICE DATA -->
-<!-- ===================================== -->
-
 <script>
+(() => {
+    const defaultOrder = {
+        number: 'O001',
+        date: '2026-10-03',
+        staff: 'Jane Smith',
+        customer: 'Alice Johnson'
+    };
 
-// Default dummy invoice item
-const defaultInvoiceItems = [
-    {
-        num: 'P001',
-        name: 'Protein Shaker Bottle - Model 1',
-        price: 25.00,
-        quantity: 1
-    }
-];
+    function loadSelectedOrder() {
+        try {
+            const saved = sessionStorage.getItem('pt1_selected_order');
+            const parsed = saved ? JSON.parse(saved) : null;
 
-// Read order items from browser session
-let invoiceItems = defaultInvoiceItems;
-
-try {
-    const savedItems = sessionStorage.getItem('pt1_invoice_items');
-
-    if (savedItems !== null) {
-        const parsedItems = JSON.parse(savedItems);
-
-        if (Array.isArray(parsedItems)) {
-            invoiceItems = parsedItems.filter(item =>
-                item &&
-                typeof item.name === 'string' &&
-                Number.isFinite(Number(item.price)) &&
-                Number(item.price) >= 0 &&
-                Number.isSafeInteger(Number(item.quantity)) &&
-                Number(item.quantity) > 0
-            );
+            if (parsed && typeof parsed.number === 'string') {
+                return parsed;
+            }
+        } catch (error) {
+            console.warn('Cannot read selected order:', error);
         }
+
+        return defaultOrder;
     }
-} catch (error) {
-    console.warn('Could not load saved invoice items.', error);
-}
 
-// Table elements
-const invoiceItemsBody =
-    document.getElementById('invoiceItemsBody');
+    const order = loadSelectedOrder();
 
-const invoiceGrandTotal =
-    document.getElementById('invoiceGrandTotal');
+    document.getElementById('pageOrderNumber').textContent =
+        order.number;
 
+    document.getElementById('invoiceOrderNumber').textContent =
+        order.number;
 
-// Display invoice
-function displayInvoice() {
+    document.getElementById('invoiceOrderDate').textContent =
+        order.date;
 
-    invoiceItemsBody.textContent = '';
+    document.getElementById('invoiceCustomerName').textContent =
+        order.customer;
 
-    let grandTotal = 0;
+    document.getElementById('invoiceStaffName').textContent =
+        order.staff;
 
-    invoiceItems.forEach((item, index) => {
+    const defaultItems = order.number === 'O001'
+        ? [{
+            num: 'P001',
+            name: 'Protein Shaker Bottle - Model 1',
+            price: 25,
+            quantity: 1
+        }]
+        : [];
 
-        const price = Number(item.price);
-        const quantity = Number(item.quantity);
-        const total = price * quantity;
+    function loadInvoiceItems() {
+        const key = 'pt1_items_' + order.number;
 
-        grandTotal += total;
+        try {
+            const saved = sessionStorage.getItem(key);
 
-        const row = document.createElement('tr');
+            if (saved !== null) {
+                const parsed = JSON.parse(saved);
 
-        const noCell = row.insertCell();
-        noCell.textContent = index + 1;
+                if (Array.isArray(parsed)) {
+                    return parsed;
+                }
+            }
+        } catch (error) {
+            console.warn('Cannot read invoice items:', error);
+        }
 
-        const productCell = row.insertCell();
-        productCell.textContent = item.name;
+        return defaultItems;
+    }
 
-        const priceCell = row.insertCell();
-        priceCell.className = 'text-end';
-        priceCell.textContent = price.toFixed(2);
+    const invoiceItems = loadInvoiceItems();
+    const tbody = document.getElementById('invoiceItemsBody');
 
-        const quantityCell = row.insertCell();
-        quantityCell.className = 'text-center';
-        quantityCell.textContent = quantity;
-
-        const totalCell = row.insertCell();
-        totalCell.className = 'text-end';
-        totalCell.textContent = total.toFixed(2);
-
-        invoiceItemsBody.appendChild(row);
-    });
-
-    // Show a message for an empty order
-    if (invoiceItems.length === 0) {
-
-        const row = document.createElement('tr');
+    function addCell(row, value, className = '') {
         const cell = row.insertCell();
-
-        cell.colSpan = 5;
-        cell.className = 'text-center text-muted py-3';
-        cell.textContent = 'No products in this order.';
-
-        invoiceItemsBody.appendChild(row);
+        cell.textContent = value;
+        cell.className = className;
+        return cell;
     }
 
-    invoiceGrandTotal.textContent =
-        'RM ' + grandTotal.toFixed(2);
-}
+    function displayInvoice() {
+        tbody.textContent = '';
 
-displayInvoice();
+        let grandTotal = 0;
 
+        invoiceItems.forEach((item, index) => {
+            const price = Number(item.price);
+            const quantity = Number(item.quantity);
+
+            if (
+                !Number.isFinite(price) ||
+                price < 0 ||
+                !Number.isSafeInteger(quantity) ||
+                quantity < 1
+            ) {
+                return;
+            }
+
+            const total = price * quantity;
+            grandTotal += total;
+
+            const row = tbody.insertRow();
+
+            addCell(row, index + 1);
+            addCell(row, item.num);
+            addCell(row, item.name);
+            addCell(row, price.toFixed(2), 'text-end');
+            addCell(row, quantity, 'text-center');
+            addCell(row, total.toFixed(2), 'text-end');
+        });
+
+        if (tbody.rows.length === 0) {
+            const row = tbody.insertRow();
+            const cell = row.insertCell();
+
+            cell.colSpan = 6;
+            cell.className = 'text-center text-muted py-3';
+            cell.textContent = 'No products in this order.';
+        }
+
+        document.getElementById('invoiceGrandTotal').textContent =
+            'RM ' + grandTotal.toFixed(2);
+    }
+
+    displayInvoice();
+})();
 </script>
-
 
 <?php
 $content = ob_get_clean();
