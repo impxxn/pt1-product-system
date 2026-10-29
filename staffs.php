@@ -93,9 +93,9 @@ ob_start();
                 <tbody>
                     <tr>
                         <td>S001</td>
-                        <td>Richard Griffin</td>
-                        <td>019-8765432</td>
-                        <td>richardgriffin@example.com</td>
+                        <td>Max Verstappen</td>
+                        <td>011-3749883</td>
+                        <td>maxverstappen10@yahoo.com</td>
                         <td>
                             <a href="#" class="btn btn-sm btn-warning">
                                 <i class="bi bi-pencil"></i>
@@ -107,9 +107,9 @@ ob_start();
                     </tr>
                     <tr>
                         <td>S002</td>
-                        <td>Muhammad Adam</td>
-                        <td>013-5556666</td>
-                        <td>adam@example.com</td>
+                        <td>Lewis Abdullah</td>
+                        <td>019-7036453</td>
+                        <td>lewisabdullah56@yahoo.com</td>
                         <td>
                             <a href="#" class="btn btn-sm btn-warning">
                                 <i class="bi bi-pencil"></i>

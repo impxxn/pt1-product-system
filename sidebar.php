@@ -4,7 +4,7 @@
 
         <a href="home.php" class="navbar-brand text-white text-decoration-none">
             <div class="row">
-                <h5>My Company</h5>
+                <h5>MuscleFit</h5>
             </div>
         </a>
 
@@ -75,9 +75,9 @@
                 </div>
 
                 <div class="d-inline-block align-middle ms-2 text-start">
-                    <h6 class="mb-0 text-nowrap">User</h6>
+                    <h6 class="mb-0 text-nowrap">Farhan</h6>
                     <small class="text-white-50 text-nowrap d-block">
-                        user@email.com
+                        farhanukm354@gmail.com
                     </small>
                 </div>
 
