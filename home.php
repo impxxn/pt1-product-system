@@ -9,11 +9,11 @@ ob_start();
 
         <h2 class="mb-2">
             <i class="bi bi-house-door text-primary me-2"></i>
-            Welcome to My Product System
+            Welcome to MuscleFit System
         </h2>
 
         <p class="text-muted mb-3">
-            Your simple and organized product management dashboard.
+            Paan's simple and organized product management dashboard.
         </p>
 
         <a href="products.php" class="btn btn-primary">
@@ -34,7 +34,7 @@ ob_start();
         </h4>
 
         <p>
-            My Product System is a web-based product
+            MuscleFit System is a web-based product
             management interface designed to organize
             products, customers, staff members and
             customer orders in one place.
@@ -69,7 +69,7 @@ ob_start();
 
                 <p class="text-muted small">
                     View and manage product information
-                    and inventory records.
+                    and inventory records. Explore our wide range of Protein shakers.
                 </p>
 
                 <a href="products.php"
