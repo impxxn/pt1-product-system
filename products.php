@@ -111,7 +111,7 @@ ob_start();
                 <small class="text-muted">View and manage all products in the inventory</small>
             </div>
             <div class="col-auto">
-                <span class="badge bg-success">Total: 1 items</span>
+                <span class="badge bg-success">Total: 20 items</span>
             </div>
         </div>
  
@@ -147,7 +147,7 @@ ob_start();
                         </td>
                     </tr>
                     <tr>
-                        <td>P001</td>
+                        <td>P002</td>
                         <td>ProStak</td>
                         <td>RM20.00</td>
                         <td>BlenderBottle</td>
@@ -164,7 +164,7 @@ ob_start();
                         </td>
                     </tr>
                     <tr>
-                        <td>P001</td>
+                        <td>P003</td>
                         <td>Shaker X</td>
                         <td>RM38.50</td>
                         <td>VOLTRX</td>
@@ -181,7 +181,7 @@ ob_start();
                         </td>
                     </tr>
                     <tr>
-                        <td>P001</td>
+                        <td>P004</td>
                         <td>VoltBoost</td>
                         <td>RM29.90</td>
                         <td>PROMiXX</td>
@@ -198,7 +198,7 @@ ob_start();
                         </td>
                     </tr>
                     <tr>
-                        <td>P001</td>
+                        <td>P005</td>
                         <td>Shaker Z</td>
                         <td>RM40.00</td>
                         <td>VOLTRX</td>
@@ -215,7 +215,7 @@ ob_start();
                         </td>
                     </tr>
                     <tr>
-                        <td>P001</td>
+                        <td>P006</td>
                         <td>Tumbler VIEW</td>
                         <td>RM15.90</td>
                         <td>Myprotein</td>
@@ -232,7 +232,7 @@ ob_start();
                         </td>
                     </tr>
                     <tr>
-                        <td>P001</td>
+                        <td>P007</td>
                         <td>Tumbler VIEW V2</td>
                         <td>RM18.90</td>
                         <td>Myprotein</td>
@@ -249,7 +249,7 @@ ob_start();
                         </td>
                     </tr>
                     <tr>
-                        <td>P001</td>
+                        <td>P008</td>
                         <td>Metal Shaker 1L</td>
                         <td>RM20.90</td>
                         <td>MuscleTech</td>
@@ -266,7 +266,7 @@ ob_start();
                         </td>
                     </tr>
                     <tr>
-                        <td>P001</td>
+                        <td>P009</td>
                         <td>Buzz 67</td>
                         <td>RM25.00</td>
                         <td>MuscleFit</td>
@@ -283,7 +283,7 @@ ob_start();
                         </td>
                     </tr>
                     <tr>
-                        <td>P001</td>
+                        <td>P010</td>
                         <td>Buzz 68</td>
                         <td>RM30.00</td>
                         <td>MuscleFit</td>
@@ -300,10 +300,10 @@ ob_start();
                         </td>
                     </tr>
                     <tr>
-                        <td>P001</td>
-                        <td>Road Bike</td>
-                        <td>$1,200.00</td>
-                        <td>Cervelo</td>
+                        <td>P011</td>
+                        <td>Shakeroz</td>
+                        <td>RM395.90</td>
+                        <td>Balenciaga</td>
                         <td>
                             <a href="#" class="btn btn-sm btn-warning">
                                 <i class="bi bi-pencil"></i>
@@ -317,10 +317,10 @@ ob_start();
                         </td>
                     </tr>
                     <tr>
-                        <td>P001</td>
-                        <td>Road Bike</td>
-                        <td>$1,200.00</td>
-                        <td>Cervelo</td>
+                        <td>P012</td>
+                        <td>Bold Shaker</td>
+                        <td>RM40.00</td>
+                        <td>Gymshark</td>
                         <td>
                             <a href="#" class="btn btn-sm btn-warning">
                                 <i class="bi bi-pencil"></i>
@@ -334,10 +334,10 @@ ob_start();
                         </td>
                     </tr>
                     <tr>
-                        <td>P001</td>
-                        <td>Road Bike</td>
-                        <td>$1,200.00</td>
-                        <td>Cervelo</td>
+                        <td>P013</td>
+                        <td>Golden Shaker</td>
+                        <td>RM50.00</td>
+                        <td>Gymshark</td>
                         <td>
                             <a href="#" class="btn btn-sm btn-warning">
                                 <i class="bi bi-pencil"></i>
@@ -351,10 +351,10 @@ ob_start();
                         </td>
                     </tr>
                     <tr>
-                        <td>P001</td>
-                        <td>Road Bike</td>
-                        <td>$1,200.00</td>
-                        <td>Cervelo</td>
+                        <td>P014</td>
+                        <td>Platinum Shaker</td>
+                        <td>RM70.00</td>
+                        <td>Gymshark</td>
                         <td>
                             <a href="#" class="btn btn-sm btn-warning">
                                 <i class="bi bi-pencil"></i>
@@ -368,10 +368,10 @@ ob_start();
                         </td>
                     </tr>
                     <tr>
-                        <td>P001</td>
-                        <td>Road Bike</td>
-                        <td>$1,200.00</td>
-                        <td>Cervelo</td>
+                        <td>P015</td>
+                        <td>Diamond Shaker</td>
+                        <td>RM89.00</td>
+                        <td>Gymshark</td>
                         <td>
                             <a href="#" class="btn btn-sm btn-warning">
                                 <i class="bi bi-pencil"></i>
@@ -385,10 +385,10 @@ ob_start();
                         </td>
                     </tr>
                     <tr>
-                        <td>P001</td>
-                        <td>Road Bike</td>
-                        <td>$1,200.00</td>
-                        <td>Cervelo</td>
+                        <td>P016</td>
+                        <td>MAX</td>
+                        <td>RM39.70</td>
+                        <td>Sportz</td>
                         <td>
                             <a href="#" class="btn btn-sm btn-warning">
                                 <i class="bi bi-pencil"></i>
@@ -402,10 +402,10 @@ ob_start();
                         </td>
                     </tr>
                     <tr>
-                        <td>P001</td>
-                        <td>Road Bike</td>
-                        <td>$1,200.00</td>
-                        <td>Cervelo</td>
+                        <td>P017</td>
+                        <td>MAX 2.0</td>
+                        <td>RM59.70</td>
+                        <td>Sportz</td>
                         <td>
                             <a href="#" class="btn btn-sm btn-warning">
                                 <i class="bi bi-pencil"></i>
@@ -419,10 +419,10 @@ ob_start();
                         </td>
                     </tr>
                     <tr>
-                        <td>P001</td>
-                        <td>Road Bike</td>
-                        <td>$1,200.00</td>
-                        <td>Cervelo</td>
+                        <td>P018</td>
+                        <td>MAX 3.0</td>
+                        <td>RM29.00</td>
+                        <td>Sportz</td>
                         <td>
                             <a href="#" class="btn btn-sm btn-warning">
                                 <i class="bi bi-pencil"></i>
@@ -436,10 +436,10 @@ ob_start();
                         </td>
                     </tr>
                     <tr>
-                        <td>P001</td>
-                        <td>Road Bike</td>
-                        <td>$1,200.00</td>
-                        <td>Cervelo</td>
+                        <td>P019</td>
+                        <td>ProShake</td>
+                        <td>RM30.00</td>
+                        <td>Fast</td>
                         <td>
                             <a href="#" class="btn btn-sm btn-warning">
                                 <i class="bi bi-pencil"></i>
@@ -453,10 +453,10 @@ ob_start();
                         </td>
                     </tr>
                     <tr>
-                        <td>P001</td>
-                        <td>Road Bike</td>
-                        <td>$1,200.00</td>
-                        <td>Cervelo</td>
+                        <td>P020</td>
+                        <td>SV 8</td>
+                        <td>RM900.00</td>
+                        <td>Redbull</td>
                         <td>
                             <a href="#" class="btn btn-sm btn-warning">
                                 <i class="bi bi-pencil"></i>
