@@ -131,9 +131,9 @@ ob_start();
                 <tbody>
                     <tr>
                         <td>P001</td>
-                        <td>Road Bike</td>
-                        <td>$1,200.00</td>
-                        <td>Cervelo</td>
+                        <td>Classic V2</td>
+                        <td>RM49.90</td>
+                        <td>ShakerBottle</td>
                         <td>
                             <a href="#" class="btn btn-sm btn-warning">
                                 <i class="bi bi-pencil"></i>
