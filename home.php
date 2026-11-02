@@ -13,7 +13,7 @@ ob_start();
         </h2>
 
         <p class="text-muted mb-3">
-            Paan's simple and organized product management dashboard.
+            Protein shake bottle sales dashboard.
         </p>
 
         <a href="products.php" class="btn btn-dark">

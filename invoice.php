@@ -21,7 +21,7 @@ ob_start();
     <div class="card-body p-4">
         <div class="row mb-4">
             <div class="col-md-6">
-                <h4>My Company</h4>
+                <h4>MuscleFit</h4>
                 <p class="text-muted mb-0">Sales Invoice</p>
             </div>
             <div class="col-md-6 text-md-end">
@@ -33,13 +33,13 @@ ob_start();
         <div class="row mb-4">
             <div class="col-md-6">
                 <strong>Customer</strong><br>
-                Alice Johnson<br>
-                012-3456789
+                Anna Jobling<br>
+                019-6767432
             </div>
             <div class="col-md-6 text-md-end">
                 <strong>Staff</strong><br>
-                Jane Smith<br>
-                janesmith@example.com
+                Max Verstappen<br>
+                maxverstappen10@yahoo.com
             </div>
         </div>
         <div class="table-responsive">
@@ -56,14 +56,14 @@ ob_start();
                 <tbody>
                     <tr>
                         <td>1</td>
-                        <td>Road Bike</td>
-                        <td>$1,200.00</td>
+                        <td>Classic V2</td>
+                        <td>RM49.90</td>
                         <td>1</td>
-                        <td class="text-end">$1,200.00</td>
+                        <td class="text-end">RM49.90</td>
                     </tr>
                     <tr><td colspan="5" class="text-center">No products added to this order</td></tr>
                 </tbody>
-                <tfoot><tr><th colspan="4" class="text-end">Grand Total</th><th class="text-end">$1,200.00</th></tr></tfoot>
+                <tfoot><tr><th colspan="4" class="text-end">Grand Total</th><th class="text-end">RM49.90</th></tr></tfoot>
             </table>
         </div>
         <a href="orderdetails.php" class="btn btn-secondary no-print"><i class="bi bi-arrow-left me-1"></i>Back to Details</a>

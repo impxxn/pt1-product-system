@@ -19,10 +19,7 @@ ob_start();
     </div>
 </div>
  
-<?php
-$content = ob_get_clean();
-require_once 'layout.php';
-?>
+
 
 <div class="card shadow-sm mb-4">
     <div class="card-body">
@@ -88,3 +85,7 @@ require_once 'layout.php';
         <a href="orders.php" class="btn btn-secondary"><i class="bi bi-arrow-left me-1"></i>Back to Orders</a>
     </div>
 </div>
+<?php
+$content = ob_get_clean();
+require_once 'layout.php';
+?>

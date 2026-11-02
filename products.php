@@ -45,19 +45,26 @@ ob_start();
                     <label for="brand" class="form-label">Brand <span class="text-danger" aria-hidden="true">*</span></label>
                     <select name="product_brand" id="brand" class="form-select" required>
                         <option value="">Select Brand</option>
-                        <option value="Cervelo">Cervelo</option>
-                        <option value="Geometric">Geometric</option>
-                        <option value="Tecc">Tecc</option>
-                        <option value="Nosh">Nosh</option>
+                        <option value="Cervelo">BlenderBottle</option>
+                        <option value="Geometric">Redbull</option>
+                        <option value="Tecc">VOLTRX</option>
+                        <option value="Nosh">MyProtein</option>
+                        <option value="Nosh">PROMiXX</option>
+                        <option value="Nosh">Balenciaga</option>
+                        <option value="Nosh">Sportz</option>
+                        <option value="Nosh">Fast</option>
+                        <option value="Nosh">Gymshark</option>
+                        <option value="Nosh">MuscleFit</option>
                     </select>
                 </div>
  
                 <div class="col-md-3">
-                    <label for="product_condition" class="form-label">Condition <span class="text-danger" aria-hidden="true">*</span></label>
+                    <label for="product_condition" class="form-label">Volume<span class="text-danger" aria-hidden="true">*</span></label>
                     <select name="product_condition" id="product_condition" class="form-select" required>
-                        <option value="">Select Condition</option>
-                        <option value="New">New</option>
-                        <option value="Used">Used</option>
+                        <option value="">Select Bottle Volume</option>
+                        <option value="400ml">400ml</option>
+                        <option value="500ml">500ml</option>
+                        <option value="1000ml">1000ml</option>
                     </select>
                 </div>
  
